@@ -5,7 +5,9 @@
  *      Author: akudlacek
  */
 
+
 #include "slew_rate_limit.h"
+
 
 /******************************************************************************
  * Limits slew rate of input based on time since last call, last value, up rate
@@ -24,7 +26,7 @@ float slew_rate_limit_f(float input, float dt, float up_rate_lim, float dn_rate_
 	float rate;
 	float output;
 
-	if(reset == TRUE) last_output = input;
+	if(reset == 1) last_output = input;
 
 	err = input - last_output;
 
@@ -68,7 +70,7 @@ long slew_rate_limit_l(long input, long dt, long up_rate_lim, long dn_rate_lim, 
 	long rate;
 	long output;
 
-	if(reset == TRUE) last_output = input;
+	if(reset == 1) last_output = input;
 
 	err = input - last_output;
 
