@@ -25,30 +25,41 @@ float slew_rate_limit_f(float input, float dt, float up_rate_lim, float dn_rate_
 	float err;
 	float rate;
 	float output;
-
+	
+	/*Reset forces the output to be the current input*/
+	/*err will be zero, and current input will be recorded*/
 	if(reset == 1) last_output = input;
-
-	err = input - last_output;
-
-	rate = err / dt;
-
-	//up rate limit
-	if((rate > up_rate_lim) && (up_rate_lim != 0))
+	
+	/*dt of zero uses the last output*/
+	if(dt == 0)
 	{
-		output = dt * up_rate_lim + last_output;
+		output = last_output;
 	}
-	//down rate limit
-	else if((rate < dn_rate_lim) && (dn_rate_lim != 0))
-	{
-		output = dt * dn_rate_lim + last_output;
-	}
-	//within limits
+	
 	else
 	{
-		output = input;
-	}
+		err = input - last_output;
 
-	last_output = output;
+		rate = err / dt;
+
+		//up rate limit
+		if((rate > up_rate_lim) && (up_rate_lim != 0))
+		{
+			output = dt * up_rate_lim + last_output;
+		}
+		//down rate limit
+		else if((rate < dn_rate_lim) && (dn_rate_lim != 0))
+		{
+			output = dt * dn_rate_lim + last_output;
+		}
+		//within limits
+		else
+		{
+			output = input;
+		}
+	}
+	
+		last_output = output;
 
 	return output;
 }
@@ -70,28 +81,39 @@ long slew_rate_limit_l(long input, long dt, long up_rate_lim, long dn_rate_lim, 
 	long rate;
 	long output;
 
+	/*Reset forces the output to be the current input*/
+	/*err will be zero, and current input will be recorded*/
 	if(reset == 1) last_output = input;
-
-	err = input - last_output;
-
-	rate = err / dt;
-
-	//up rate limit
-	if((rate > up_rate_lim) && (up_rate_lim != 0))
+	
+	/*dt of zero uses the last output*/
+	if(dt == 0)
 	{
-		output = dt * up_rate_lim + last_output;
+		output = last_output;
 	}
-	//down rate limit
-	else if((rate < dn_rate_lim) && (dn_rate_lim != 0))
-	{
-		output = dt * dn_rate_lim + last_output;
-	}
-	//within limits
+	
 	else
 	{
-		output = input;
-	}
+		err = input - last_output;
 
+		rate = err / dt;
+
+		//up rate limit
+		if((rate > up_rate_lim) && (up_rate_lim != 0))
+		{
+			output = dt * up_rate_lim + last_output;
+		}
+		//down rate limit
+		else if((rate < dn_rate_lim) && (dn_rate_lim != 0))
+		{
+			output = dt * dn_rate_lim + last_output;
+		}
+		//within limits
+		else
+		{
+			output = input;
+		}
+	}
+	
 	last_output = output;
 
 	return output;
